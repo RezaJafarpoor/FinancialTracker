@@ -2,7 +2,13 @@ services:
   postgres:
     container_name: postgres_db
     environment:
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER:FinancialTracker
+      - POSTGRES_PASSWORD:password
+      - POSTGRES_DB:FinancialTracker
     image: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

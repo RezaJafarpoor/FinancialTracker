@@ -1,15 +1,12 @@
 using Backend;
-using Backend.Shared;
+using Backend.Shared.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<CalenderHelper>();
+builder.Services.AddServices(builder.Configuration);
 var app = builder.Build();
 
-app.MapGet("/test", (CalenderHelper service) =>
+app.MapGet("/test", () =>
 {
-    var date = service.ConvertToPersian();
-    return Results.Ok(date);
-
 });
 
 app.Run();
