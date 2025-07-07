@@ -1,14 +1,17 @@
 using Backend.Shared.Domain;
+using Backend.Shared.Persistence;
 using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Shared;
 
-public class AuthService(IPasswordHasher<User> passwordHasher)
+public class AuthService(ApplicationContext dbContext, IPasswordHasher<User> passwordHasher)
 {
-    public string CreateUser()
+    public async Task CreateUser(string userName, string email, string password)
     {
-        var user = new User();
-        var hashedPassword = passwordHasher.HashPassword(user, "Reza1234");
-        return hashedPassword;
+        var user = User.CreateUser(userName, email);
+        var hashedPassword = passwordHasher.HashPassword(user, password);
+        user.SetHashedPassword(hashedPassword);
+        dbContext.Users.Add(user);
+        await dbContext.SaveChangesAsync();
     }
 }

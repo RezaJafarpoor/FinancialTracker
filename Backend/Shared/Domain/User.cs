@@ -1,6 +1,3 @@
-using System.Runtime.InteropServices;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-
 namespace Backend.Shared.Domain;
 
 public class User
@@ -15,14 +12,17 @@ public class User
     public List<Transaction> Transactions { get; set; } = [];
 
 
-    private User(string userName, string email, string passwordhash)
+    private User(string userName, string email)
     {
         UserName = userName;
         Email = email;
-        PasswordHash = passwordhash;
     }
 
-    public static User CreateUser(string userName, string email, string passwordhash)
-        => new(userName, email, passwordhash);
+    public static User CreateUser(string userName, string email)
+        => new(userName, email);
+    public void SetHashedPassword(string hashPassword)
+    {
+        PasswordHash = hashPassword;
+    }
 
 }

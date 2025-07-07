@@ -9,4 +9,5 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
     public DbSet<User> Users { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
 
+
 }
