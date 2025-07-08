@@ -15,4 +15,12 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\CreateTransaction\" />
+    <Folder Include="Features\DeleteTransaction\" />
+    <Folder Include="Features\Login\" />
+    <Folder Include="Features\ResetPassword\" />
+    <Folder Include="Features\UpdateTransaction\" />
+  </ItemGroup>
+
 </Project>
