@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CreateTransaction\" />
     <Folder Include="Features\DeleteTransaction\" />
     <Folder Include="Features\ResetPassword\" />
     <Folder Include="Features\UpdateTransaction\" />
