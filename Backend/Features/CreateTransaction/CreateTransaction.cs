@@ -11,11 +11,11 @@ public record CreateTransactionDto(string IncomeType, int Amount, string Descrip
 public class CreateTransaction : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-         => app.MapPost("/transaction", async ([FromBody] CreateTransactionDto dto, ApplicationContext dbContext) =>
+         => app.MapGroup("transaction").MapPost("/transaction", async ([FromBody] CreateTransactionDto dto, ApplicationContext dbContext) =>
          {
              // Get user Id from token then create the transaction
              //  var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == token);
              //  var transaction = Transaction.CreateTransaction(dto.IncomeType, dto.Amount, dto.Description, user);
              //  save transaction and return
-         });
+         }).WithTags("Transaction");
 }

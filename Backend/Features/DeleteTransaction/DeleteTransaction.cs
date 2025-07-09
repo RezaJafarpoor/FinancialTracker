@@ -9,8 +9,8 @@ namespace Backend.Features.DeleteTransaction;
 public class DeleteTransaction : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-        => app.MapDelete("/transaction", async ([FromBody] Guid id, ApplicationContext dbContext) =>
+        => app.MapGroup("transaction").MapDelete("/transaction", async ([FromBody] Guid id, ApplicationContext dbContext) =>
      {
 
-     });
+     }).WithTags("Transaction");
 }

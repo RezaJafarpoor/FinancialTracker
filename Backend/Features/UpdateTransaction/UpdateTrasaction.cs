@@ -10,10 +10,10 @@ public record UpdateTransactionDto(Guid Id, string IncomeType, int Amount, strin
 public class UpdateTrasaction : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-     => app.MapPut("/transaction", async ([FromBody] UpdateTransactionDto dto, ApplicationContext dbContext) =>
+     => app.MapGroup("transaction").MapPut("/transaction", async ([FromBody] UpdateTransactionDto dto, ApplicationContext dbContext) =>
      {
 
-     });
+     }).WithTags("Transaction");
 
 
 }

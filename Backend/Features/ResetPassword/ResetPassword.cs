@@ -6,9 +6,10 @@ namespace Backend.Features.ResetPassword;
 public class ResetPassword : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-     => app.MapPost("reset", () =>
+     => app.MapGroup("identity").MapPost("reset", () =>
      {
 
-     }).WithGroupName("identity");
+     }).WithTags("Identity");
+
 
 }
