@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Shared.Auth;
 
-public class AuthService(ApplicationContext dbContext, IPasswordHasher<User> passwordHasher)
+public class AuthService(ApplicationContext dbContext,
+IPasswordHasher<User> passwordHasher, TokenProvider tokenProvider)
 {
     public async Task<bool> CreateUser(CreateAccountDto dto)
     {
@@ -20,23 +21,23 @@ public class AuthService(ApplicationContext dbContext, IPasswordHasher<User> pas
     }
 
 
-    public async Task<bool> Login(LoginDto dto)
+    public async Task<string> Login(LoginDto dto)
     {
         var user = await dbContext.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
         if (user is null)
         {
             // failed logic here
-            return false;
+            return "false";
         }
         var hashedPassword = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
         if (hashedPassword == PasswordVerificationResult.Failed)
         {
             // failed logic here
 
-            return false;
+            return "false";
         }
-        // generate token logic here
-        return true;
+        var token = tokenProvider.GenerateJwtToken(user.Id);
+        return token;
     }
 
     public async Task<bool> ResetPassword(ResetDto dto)
