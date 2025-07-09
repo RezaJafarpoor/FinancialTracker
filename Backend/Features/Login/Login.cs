@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Backend.Features.Login;
 
-public record LoginDto(string UserName, string Password);
+public record LoginDto(string Email, string Password);
 
 public class Login : IEndpoint
 {
@@ -16,10 +16,14 @@ public class Login : IEndpoint
       AuthService authService) =>
     {
         var token = await authService.Login(dto);
-        if (token is null)
-            return Results.Unauthorized();
+        if (!token.IsSuccess)
+            return Results.Problem(
+                detail: "Invalid username or password",
+                statusCode: StatusCodes.Status401Unauthorized,
+                title: "Unauthorized"
+                );
 
-        httpResponse.Cookies.Append("access_token", token, new CookieOptions
+        httpResponse.Cookies.Append("access_token", token.Data!, new CookieOptions
         {
             HttpOnly = true,
             Secure = true,
@@ -28,5 +32,7 @@ public class Login : IEndpoint
         });
         return Results.Ok();
     })
-    .WithTags("Identity");
+    .WithTags("Identity")
+    .Produces(StatusCodes.Status200OK)
+    .ProducesProblem(StatusCodes.Status401Unauthorized);
 }

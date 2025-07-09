@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Features.ResetPassword;
 
-public record ResetDto(string UserName, string OldPassword, string NewPassword);
+
+public record ResetDto(string Email, string OldPassword, string NewPassword);
 
 public class ResetPassword : IEndpoint
 {
@@ -12,9 +13,13 @@ public class ResetPassword : IEndpoint
      => app.MapGroup("identity").MapPost("reset", async ([FromBody] ResetDto dto, AuthService authService) =>
      {
          var response = await authService.ResetPassword(dto);
-         return response ? Results.Ok() : Results.BadRequest();
+         return response.IsSuccess ? Results.Ok("Password changed successfuly")
+         : Results.BadRequest();
 
-     }).WithTags("Identity");
+     }).WithTags("Identity")
+     .Produces(StatusCodes.Status200OK)
+     .ProducesProblem(StatusCodes.Status400BadRequest);
+
 
 
 }

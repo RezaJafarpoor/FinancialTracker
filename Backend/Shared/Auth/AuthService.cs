@@ -11,47 +11,49 @@ namespace Backend.Shared.Auth;
 public class AuthService(ApplicationContext dbContext,
 IPasswordHasher<User> passwordHasher, TokenProvider tokenProvider)
 {
-    public async Task<bool> CreateUser(CreateAccountDto dto)
+    public async Task<Response<bool>> CreateUser(CreateAccountDto dto)
     {
+        var duplicateEmailCheck = await dbContext.Users.AnyAsync(u => u.Email == dto.Email);
+        if (duplicateEmailCheck)
+            return Response<bool>.Failure("This email is already used");
         var user = User.CreateUser(dto.UserName, dto.Email);
         var hashedPassword = passwordHasher.HashPassword(user, dto.Password);
         user.SetHashedPassword(hashedPassword);
         dbContext.Users.Add(user);
-        return await dbContext.SaveChangesAsync() > 0;
+        if (await dbContext.SaveChangesAsync() > 0)
+            return Response<bool>.Success();
+        return Response<bool>.Failure("Something went wrong with user creation");
     }
 
 
-    public async Task<string> Login(LoginDto dto)
+    public async Task<Response<string>> Login(LoginDto dto)
     {
-        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
         if (user is null)
-        {
-            // failed logic here
-            return "false";
-        }
+            return Response<string>.Failure("username or password is wrong");
         var hashedPassword = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
         if (hashedPassword == PasswordVerificationResult.Failed)
-        {
-            // failed logic here
+            return Response<string>.Failure("username or password is wrong");
 
-            return "false";
-        }
         var token = tokenProvider.GenerateJwtToken(user.Id);
-        return token;
+        return Response<string>.Success(token);
+
     }
 
-    public async Task<bool> ResetPassword(ResetDto dto)
+    public async Task<Response<bool>> ResetPassword(ResetDto dto)
     {
-        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.UserName == dto.UserName);
+        var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
         if (user is null)
-            return false;
+            return Response<bool>.Failure("username or password is wrong");
         var checkOldPassword = passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.OldPassword);
         if (checkOldPassword != PasswordVerificationResult.Success)
-            return false;
+            return Response<bool>.Failure("username or password is wrong");
 
         var newHashedPassword = passwordHasher.HashPassword(user, dto.NewPassword);
         user.SetHashedPassword(newHashedPassword);
-        return await dbContext.SaveChangesAsync() > 0;
+        if (!(await dbContext.SaveChangesAsync() > 0))
+            return Response<bool>.Failure("Something went wrong");
+        return Response<bool>.Success();
     }
 
 }
