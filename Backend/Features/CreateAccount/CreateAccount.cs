@@ -13,7 +13,7 @@ public class CreateAccount : IEndpoint
      => app.MapGroup("identity").MapPost("register", async ([FromBody] CreateAccountDto dto, AuthService authService) =>
      {
          var response = await authService.CreateUser(dto);
-         return response ? Results.Created() : Results.BadRequest();
+         return response.IsSuccess ? Results.Created() : Results.BadRequest();
 
      }).WithTags("Identity")
      .WithDescription("ساخت حساب کاربری")

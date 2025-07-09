@@ -14,17 +14,16 @@ public class Transaction
     public string Description { get; set; } = string.Empty;
     public Guid UserId { get; set; }
     public User? User { get; set; }
-    private Transaction(string incomeType, int amount, string description, User user)
+    private Transaction(string incomeType, int amount, string description, Guid userId)
     {
         IncomeType = incomeType;
         Amount = amount;
         Description = description;
         DateTime = DateTime.UtcNow;
-        User = user;
-        UserId = user.Id;
+        UserId = userId;
     }
 
-    public static Transaction CreateTransaction(string incomeType, int amount, string description, User user)
-         => new(incomeType, amount, description, user);
+    public static Transaction CreateTransaction(string incomeType, int amount, string description, Guid userId)
+         => new(incomeType, amount, description, userId);
 
 }
