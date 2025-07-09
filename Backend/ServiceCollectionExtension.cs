@@ -1,5 +1,5 @@
 using System.Reflection;
-using Backend.Shared;
+using Backend.Shared.Auth;
 using Backend.Shared.Domain;
 using Backend.Shared.Interfaces;
 using Backend.Shared.Persistence;
