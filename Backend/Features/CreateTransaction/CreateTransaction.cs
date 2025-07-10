@@ -22,7 +22,6 @@ public class CreateTransaction : IEndpoint
              if (await dbContext.SaveChangesAsync() > 0)
                  return Results.Created();
              return Results.BadRequest();
-
          }).WithTags("Transaction")
          .RequireAuthorization();
 }
