@@ -8,24 +8,30 @@ public class TransactionMapper(DateTimeConverter timeConverter)
 {
 
     public TransactionDto MapToDto(Transaction transaction)
-            => new(
-                Id: transaction.Id,
-                 IncomeType: transaction.IncomeType,
-                 Amount: transaction.Amount,
-                 DateTime: timeConverter.ConvertToPersianCalender(transaction.DateTime),
-                 Description: transaction.Description);
+    {
+        var dateAndTime = timeConverter.ConvertToPersianCalender(transaction.DateTime);
+        return new(
+         Id: transaction.Id,
+         IncomeType: transaction.IncomeType,
+         Amount: transaction.Amount,
+         Date: dateAndTime.Date,
+         Time: dateAndTime.Time,
+         Description: transaction.Description);
+    }
 
     public List<TransactionDto> MapToDto(List<Transaction> transactions)
     {
         var list = new List<TransactionDto>();
         foreach (var transaction in transactions)
         {
+            var dateAndTime = timeConverter.ConvertToPersianCalender(transaction.DateTime);
             var dto = new TransactionDto
             (
-               Id: transaction.Id,
+                Id: transaction.Id,
                 IncomeType: transaction.IncomeType,
                 Amount: transaction.Amount,
-                DateTime: timeConverter.ConvertToPersianCalender(transaction.DateTime),
+                Date: dateAndTime.Date,
+                Time: dateAndTime.Time,
                 Description: transaction.Description
             );
             list.Add(dto);

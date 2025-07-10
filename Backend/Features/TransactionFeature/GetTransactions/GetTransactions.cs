@@ -1,14 +1,12 @@
 using System.Security.Claims;
 using Backend.Features.TransactionFeature;
-using Backend.Shared;
-using Backend.Shared.Domain;
 using Backend.Shared.Interfaces;
 using Backend.Shared.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Features.GetTransaction;
 
-public record TransactionDto(Guid Id, string IncomeType, int Amount, string DateTime, string Description);
+public record TransactionDto(Guid Id, string IncomeType, int Amount, string Date, string Time, string Description);
 public class GetTransactions : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
