@@ -11,7 +11,7 @@ public record CreateTransactionDto(string IncomeType, int Amount, string Descrip
 public class CreateTransaction : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-         => app.MapGroup("transaction").MapPost("/transaction",
+         => app.MapGroup("api").MapPost("transaction",
          async ([FromBody] CreateTransactionDto dto, HttpContext context, ApplicationContext dbContext) =>
          {
              var userToken = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

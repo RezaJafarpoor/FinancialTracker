@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 using System.Text;
 using Backend.Shared.Auth;
@@ -50,6 +51,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<AuthService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<TokenProvider>();
+        services.AddScoped<DateTimeConverter>();
     }
 
 

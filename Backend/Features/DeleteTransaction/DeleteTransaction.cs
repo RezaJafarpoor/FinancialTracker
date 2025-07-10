@@ -11,8 +11,8 @@ namespace Backend.Features.DeleteTransaction;
 public class DeleteTransaction : IEndpoint
 {
     public void Register(IEndpointRouteBuilder app)
-        => app.MapGroup("transaction")
-        .MapDelete("/transaction", async ([FromBody] Guid id, HttpContext context, ApplicationContext dbContext) =>
+        => app.MapGroup("api")
+        .MapDelete("transaction", async ([FromBody] Guid id, HttpContext context, ApplicationContext dbContext) =>
      {
          var token = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
          Guid.TryParse(token, out Guid userId);
