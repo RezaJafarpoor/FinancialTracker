@@ -3,7 +3,7 @@ using Backend.Shared.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Scalar.AspNetCore;
 
-namespace Backend.Features.CreateAccount;
+namespace Backend.Features.AuthFeature.CreateAccount;
 
 public record CreateAccountDto(string UserName, string Email, string Password);
 

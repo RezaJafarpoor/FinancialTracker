@@ -1,13 +1,13 @@
-using System.ComponentModel;
 using System.Reflection;
 using System.Text;
+using Backend.Features.TransactionFeature;
+using Backend.Shared;
 using Backend.Shared.Auth;
 using Backend.Shared.Domain;
 using Backend.Shared.Interfaces;
 using Backend.Shared.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing.Tree;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -52,6 +52,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<TokenProvider>();
         services.AddScoped<DateTimeConverter>();
+        services.AddScoped<TransactionMapper>();
+
     }
 
 
@@ -94,6 +96,7 @@ public static class ServiceCollectionExtension
             };
         });
     }
+
 
 
 }

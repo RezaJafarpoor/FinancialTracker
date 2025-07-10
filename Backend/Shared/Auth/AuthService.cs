@@ -1,6 +1,6 @@
-using Backend.Features.CreateAccount;
-using Backend.Features.Login;
-using Backend.Features.ResetPassword;
+using Backend.Features.AuthFeature.CreateAccount;
+using Backend.Features.AuthFeature.Login;
+using Backend.Features.AuthFeature.ResetPassword;
 using Backend.Shared.Domain;
 using Backend.Shared.Persistence;
 using Microsoft.AspNetCore.Identity;

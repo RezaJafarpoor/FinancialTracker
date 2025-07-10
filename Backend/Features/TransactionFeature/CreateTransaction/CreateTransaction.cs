@@ -4,7 +4,7 @@ using Backend.Shared.Interfaces;
 using Backend.Shared.Persistence;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Features.CreateTransaction;
+namespace Backend.Features.TransactionFeature.CreateTransaction;
 
 public record CreateTransactionDto(string IncomeType, int Amount, string Description);
 

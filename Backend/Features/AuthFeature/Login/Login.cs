@@ -3,7 +3,7 @@ using Backend.Shared.Auth;
 using Backend.Shared.Interfaces;
 using Microsoft.Extensions.Options;
 
-namespace Backend.Features.Login;
+namespace Backend.Features.AuthFeature.Login;
 
 public record LoginDto(string Email, string Password);
 

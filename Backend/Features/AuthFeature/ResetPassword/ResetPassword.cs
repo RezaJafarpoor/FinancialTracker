@@ -2,7 +2,7 @@ using Backend.Shared.Auth;
 using Backend.Shared.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Features.ResetPassword;
+namespace Backend.Features.AuthFeature.ResetPassword;
 
 
 public record ResetDto(string Email, string OldPassword, string NewPassword);

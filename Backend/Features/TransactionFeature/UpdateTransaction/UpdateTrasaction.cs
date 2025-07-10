@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Features.UpdateTransaction;
+namespace Backend.Features.TransactionFeature.UpdateTransaction;
 
 public record UpdateTransactionDto(Guid Id, string? IncomeType, int? Amount, string? Description);
 
