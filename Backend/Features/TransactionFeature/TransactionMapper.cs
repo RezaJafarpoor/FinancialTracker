@@ -9,7 +9,7 @@ public class TransactionMapper(DateTimeConverter timeConverter)
 
     public TransactionDto MapToDto(Transaction transaction)
     {
-        var dateAndTime = timeConverter.ConvertToPersianCalender(transaction.DateTime);
+        var dateAndTime = timeConverter.ConvertFromUtcToPersianCalender(transaction.DateTime);
         return new(
          Id: transaction.Id,
          IncomeType: transaction.IncomeType,
@@ -24,7 +24,7 @@ public class TransactionMapper(DateTimeConverter timeConverter)
         var list = new List<TransactionDto>();
         foreach (var transaction in transactions)
         {
-            var dateAndTime = timeConverter.ConvertToPersianCalender(transaction.DateTime);
+            var dateAndTime = timeConverter.ConvertFromUtcToPersianCalender(transaction.DateTime);
             var dto = new TransactionDto
             (
                 Id: transaction.Id,

@@ -14,13 +14,13 @@ public class Transaction
     public Guid UserId { get; set; }
     [JsonIgnore]
     public User? User { get; set; }
-    private Transaction(string incomeType, int amount, string description, Guid userId)
+    private Transaction(string incomeType, int amount, string description, Guid userId, DateTime dateTime)
     {
         IncomeType = incomeType;
         Amount = amount;
         Description = description;
-        DateTime = DateTime.UtcNow;
         UserId = userId;
+        DateTime = dateTime;
     }
 
     public void UpdateTrasaction(string? incomeType, int? amount, string? description)
@@ -31,7 +31,7 @@ public class Transaction
 
     }
 
-    public static Transaction CreateTransaction(string incomeType, int amount, string description, Guid userId)
-         => new(incomeType, amount, description, userId);
+    public static Transaction CreateTransaction(string incomeType, int amount, string description, Guid userId, DateTime dateTime)
+         => new(incomeType, amount, description, userId, dateTime);
 
 }
