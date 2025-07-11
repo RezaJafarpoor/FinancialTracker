@@ -1,5 +1,5 @@
-using System.ComponentModel;
 using Backend.Shared.Auth;
+using Backend.Shared.EndpointFilters;
 using Backend.Shared.Interfaces;
 using Microsoft.Extensions.Options;
 
@@ -32,6 +32,7 @@ public class Login : IEndpoint
         });
         return Results.Ok();
     })
+    .AddEndpointFilter<LoggingFilter<Login>>()
     .WithTags("Identity")
     .Produces(StatusCodes.Status200OK)
     .ProducesProblem(StatusCodes.Status401Unauthorized);

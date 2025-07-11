@@ -1,5 +1,3 @@
-using System;
-
 namespace Backend.Shared.Auth;
 
 public record JwtSetting

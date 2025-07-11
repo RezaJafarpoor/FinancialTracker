@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Backend.Shared.Interfaces;
 using Backend.Shared.Persistence;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,5 @@
 using Backend;
+using Backend.Shared.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapScalarApiReference();
 }
+app.UseCustomExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapOpenApi();
