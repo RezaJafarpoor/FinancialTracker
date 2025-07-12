@@ -6,11 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddServices(builder.Configuration);
 builder.Services.AddOpenApi();
 var app = builder.Build();
+app.UseCustomExceptionHandler();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapScalarApiReference();
 }
-app.UseCustomExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapOpenApi();

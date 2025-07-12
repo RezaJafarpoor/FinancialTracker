@@ -10,10 +10,9 @@ public static class ExceptionHandlerExtension
         error.Run(async context =>
         {
             var logger = context.RequestServices.GetRequiredService<ILoggerFactory>().CreateLogger("GlobalExeptionHandler");
-            var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-            var endpointPath = context.Features.Get<IExceptionHandlerFeature>()?.Path;
+            var exception = context.Features.Get<IExceptionHandlerFeature>();
 
-            logger.LogCritical($" the {endpointPath} threw exception : {exception?.Message}");
+            logger.LogCritical($" the {exception?.Path} threw exception : {exception?.Error.Message}");
 
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
